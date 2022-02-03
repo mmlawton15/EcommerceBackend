@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
     attributes: [
       'id',
       'category_name',
-      [sequelize.literal('(SELECT * FROM Category')]
+      [sequelize.literal('(SELECT * FROM Category')] //unsure how to reference products here
     ]
   })
 });
@@ -20,6 +20,33 @@ router.get('/:id', (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
   console.log('======================')
+  Category.findOne({
+    where: {
+      id: req.params.id
+    },
+    attributes: [
+      'id',
+      'category_name',
+      [sequelize.literal('(SELECT COUNT(*) FROM Product WHERE Category.id = Product.category_id)')] //i know this is wrong
+    ],
+    include: [
+      {
+        model: Category,
+        attributes: ['id', 'category_name'],
+        include: {
+          model: Product,
+          attributes: ['product_name']
+        }
+      },
+      {
+        model: Product,
+        attributes: ['product_name'] //trying to list out the products tied to this category?
+      }
+    ]
+  })
+  // .then(dbCategoryData => {
+
+  // })
 });
 
 router.post('/', (req, res) => {
