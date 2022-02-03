@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Category, Product } = require('../../models');
+const sequelize = require('sequelize');
 
 // The `/api/categories` endpoint
 
@@ -11,9 +12,13 @@ router.get('/', (req, res) => {
     attributes: [
       'id',
       'category_name',
-      [sequelize.literal('(SELECT * FROM Category')] //unsure how to reference products here
+      //[sequelize.literal('(SELECT * FROM Category')] //unsure how to reference products here JOIN
     ]
+  }).then((taco) => {
+    console.log(taco);
+    res.json(taco)
   })
+  //res.json('oooo not good')
 });
 
 router.get('/:id', (req, res) => {
@@ -26,27 +31,29 @@ router.get('/:id', (req, res) => {
     },
     attributes: [
       'id',
-      'category_name',
-      [sequelize.literal('(SELECT COUNT(*) FROM Product WHERE Category.id = Product.category_id)')] //i know this is wrong
+      'category_name'
+      //[sequelize.literal('(SELECT COUNT(*) FROM Product WHERE Category.id = Product.category_id)')] //i know this is wrong
     ],
-    include: [
-      {
-        model: Category,
-        attributes: ['id', 'category_name'],
-        include: {
-          model: Product,
-          attributes: ['product_name']
-        }
-      },
-      {
-        model: Product,
-        attributes: ['product_name'] //trying to list out the products tied to this category?
-      }
-    ]
+    // include: [
+    //   {
+    //     model: Category,
+    //     attributes: ['id', 'category_name'], //PROBABLY DELETE THIS AFTER UPDATING INDEX.JS
+    //     include: {
+    //       model: Product,
+    //       attributes: ['product_name']
+    //     }
+    //   },
+    //   {
+    //     model: Product,
+    //     attributes: ['product_name'] //trying to list out the products tied to this category?
+    //   }
+    // ]
   })
-  // .then(dbCategoryData => {
-
-  // })
+  .then(dbCategoryData => {
+    console.table(dbCategoryData);
+    res.json(dbCategoryData);
+  })
+  //res.json('mary broke it')
 });
 
 router.post('/', (req, res) => {
