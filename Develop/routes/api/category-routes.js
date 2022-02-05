@@ -12,13 +12,21 @@ router.get('/', (req, res) => {
     attributes: [
       'id',
       'category_name',
-      //[sequelize.literal('(SELECT * FROM Category')] //need to use a join to reference products but after refactoring the sequelize.literal is breaking my code
+    ],
+    include: [
+      {
+        model: Category,
+        attributes: ['id', 'category_name']
+      },
+      {
+        model: Product,
+        attributes: ['id', 'product_name', 'price', 'stock']
+      }
     ]
   }).then((taco) => {
     console.log(taco);
     res.json(taco)
   })
-  //res.json('oooo not good')
 });
 
 router.get('/:id', (req, res) => {
@@ -32,12 +40,15 @@ router.get('/:id', (req, res) => {
     attributes: [
       'id',
       'category_name'
-      //[sequelize.literal('(SELECT COUNT(*) FROM Product WHERE Category.id = Product.category_id)')] //i know this is wrong
     ],
     include: [
       {
         model: Category,
         attributes: ['id', 'category_name'], //PROBABLY DELETE THIS AFTER UPDATING INDEX.JS
+      },
+      {
+        model: Product,
+        attributes: ['id', 'product_name', 'price', 'stock']
       }
     ]
   })
