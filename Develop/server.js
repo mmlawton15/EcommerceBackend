@@ -4,12 +4,11 @@
 // DONE - WHEN I enter schema and seed commands
 // DONE - THEN a development database is created and is seeded with test data
 // DONE - WHEN I enter the command to invoke the application
-// THEN my server is started and the Sequelize models are synced to the MySQL database
+// DONE - THEN my server is started and the Sequelize models are synced to the MySQL database
 // WHEN I open API GET routes in Insomnia for categories, products, or tags
 // THEN the data for each of these routes is displayed in a formatted JSON
 // WHEN I test API POST, PUT, and DELETE routes in Insomnia
 // THEN I am able to successfully create, update, and delete data in my database
-
 
 const express = require('express');
 const routes = require('./routes');
@@ -24,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
 // sync sequelize models to the database, then turn on the server
-sequelize.sync({ force: false }).then(() => { //WHAT DOES WRAPPING THIS IN SEQUELIZE DO
+sequelize.sync({ force: true }).then(() => { //WHAT DOES WRAPPING THIS IN SEQUELIZE DO
   app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}!`);
   });
