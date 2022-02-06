@@ -10,9 +10,6 @@ router.get('/', (req, res) => {
   Product.findAll({
     include: [
       {
-        model: Product
-      },
-      {
         model: Category
       },
       {
@@ -31,12 +28,6 @@ router.get('/:id', (req, res) => {
       id:req.params.id
     },
     include: [
-      {
-        model: Product,
-        include: {
-          model: Category
-        }
-      },
       {
         model: Category
       },
