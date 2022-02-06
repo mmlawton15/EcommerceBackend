@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const Sequelize = require('./config/connection.js');
+const Sequelize = require('sequelize');
 
 const sequelize = process.env.JAWSDB_URL //ternary operator
   ? new Sequelize(process.env.JAWSDB_URL) //does it have a jaws db file?
