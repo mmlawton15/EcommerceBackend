@@ -11,8 +11,8 @@
 // THEN I am able to successfully create, update, and delete data in my database
 
 const express = require('express');
-const routes = require('./routes');
-const sequelize = require('./config/connection');
+const routes = require('./Develop/routes');
+const sequelize = require('./Develop/config/connection');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
