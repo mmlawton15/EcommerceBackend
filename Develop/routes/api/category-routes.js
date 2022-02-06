@@ -9,18 +9,12 @@ router.get('/', (req, res) => {
   // be sure to include its associated Products
   console.log('======================')
   Category.findAll({
-    attributes: [
-      'id',
-      'category_name',
-    ],
     include: [
       {
-        model: Category,
-        attributes: ['id', 'category_name']
+        model: Category
       },
       {
-        model: Product,
-        attributes: ['id', 'product_name', 'price', 'stock']
+        model: Product
       }
     ]
   }).then((taco) => {
@@ -37,18 +31,12 @@ router.get('/:id', (req, res) => {
     where: {
       id: req.params.id
     },
-    attributes: [
-      'id',
-      'category_name'
-    ],
     include: [
       {
-        model: Category,
-        attributes: ['id', 'category_name'], //PROBABLY DELETE THIS AFTER UPDATING INDEX.JS
+        model: Category
       },
       {
-        model: Product,
-        attributes: ['id', 'product_name', 'price', 'stock']
+        model: Product
       }
     ]
   })
