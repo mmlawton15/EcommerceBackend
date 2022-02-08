@@ -16,6 +16,9 @@ router.get('/', (req, res) => {
         model: Tag
       }
     ]
+  }).then((allProducts) => {
+    console.log(allProducts);
+    res.json(allProducts)
   })
 });
 

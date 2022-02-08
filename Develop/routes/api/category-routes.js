@@ -13,9 +13,9 @@ router.get('/', (req, res) => {
         model: Product
       }
     ]
-  }).then((taco) => {
-    console.log(taco);
-    res.json(taco)
+  }).then((allCats) => {
+    console.log(allCats);
+    res.json(allCats)
   })
 });
 
